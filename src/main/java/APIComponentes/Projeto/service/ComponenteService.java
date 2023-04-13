@@ -1,6 +1,9 @@
 package APIComponentes.Projeto.service;
 import APIComponentes.Projeto.domain.Componente;
+import APIComponentes.Projeto.mapper.ComponenteMapper;
 import APIComponentes.Projeto.repository.ComponenteRepository;
+import APIComponentes.Projeto.request.ComponentePostRequestBody;
+import APIComponentes.Projeto.request.ComponentePutRequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,41 +18,31 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ComponenteService {
-    //private final ComponenteRepository componenteRepository;
-
-    private static List<Componente> componentes;
-
-    static{
-        componentes = new ArrayList<>(List.of(
-            new Componente(1L,"Resistor"),
-            new Componente(2L,"Capacitor"),
-            new Componente(3L, "Arduino")));
-    }
+    private final ComponenteRepository componenteRepository;
 
     public List<Componente> listAll(){
-        //return componenteRepository.listAll();
-        return componentes;
+        return componenteRepository.findAll();
+        
     }
 
-    public Componente findById(long id) {
-        return componentes.stream()
-            .filter(componente -> componente.getId().equals(id))
-            .findFirst()
+    public Componente findByIdOrThrowBadRequestException(long id) {
+        return componenteRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Componente não encontrado"));
     }
 
-    public Componente save(Componente componente) {
-        componente.setId(ThreadLocalRandom.current().nextLong(3,10000));
-        componentes.add(componente);
-        return componente;
+    public Componente save(ComponentePostRequestBody componentePostRequestBody) {
+        return componenteRepository.save(ComponenteMapper.INSTANCE.toComponente(componentePostRequestBody));
+        
     }
 
     public void delete(long id) {
-        componentes.remove(findById(id));
+        componenteRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
-    public void replace(Componente componente) {
-        delete(componente.getId());
-        componentes.add(componente);
+    public void replace(ComponentePutRequestBody componentePutRequestBody) {        
+        Componente savedComponente = findByIdOrThrowBadRequestException(componentePutRequestBody.getId());
+        Componente componente = ComponenteMapper.INSTANCE.toComponente(componentePutRequestBody);
+        componente.setId(savedComponente.getId());
+        componenteRepository.save(componente);
     }
 }

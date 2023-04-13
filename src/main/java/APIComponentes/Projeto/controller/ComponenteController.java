@@ -1,6 +1,8 @@
 package APIComponentes.Projeto.controller;
 
 import APIComponentes.Projeto.domain.Componente;
+import APIComponentes.Projeto.request.ComponentePostRequestBody;
+import APIComponentes.Projeto.request.ComponentePutRequestBody;
 import APIComponentes.Projeto.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -37,12 +39,12 @@ public class ComponenteController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Componente> findById(@PathVariable long id){
-        return ResponseEntity.ok(componenteService.findById(id));
+        return ResponseEntity.ok(componenteService.findByIdOrThrowBadRequestException(id));
     }
 
     @PostMapping
-    public ResponseEntity<Componente> save(@RequestBody Componente componente){
-        return new ResponseEntity<>(componenteService.save(componente), HttpStatus.CREATED);
+    public ResponseEntity<Componente> save(@RequestBody ComponentePostRequestBody componentePostRequestBody){
+        return new ResponseEntity<>(componenteService.save(componentePostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path ="/{id}")
@@ -52,8 +54,8 @@ public class ComponenteController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Componente componente){
-        componenteService.replace(componente);
+    public ResponseEntity<Void> replace(@RequestBody ComponentePutRequestBody componentePutRequestBody){
+        componenteService.replace(componentePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
