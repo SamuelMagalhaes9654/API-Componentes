@@ -20,6 +20,8 @@ public class Componente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private String descricao;
+    private Long quantidade;
+    private String local;
 
-    
 }

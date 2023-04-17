@@ -1,6 +1,8 @@
 package APIComponentes.Projeto.controller;
 
 import APIComponentes.Projeto.domain.Componente;
+import APIComponentes.Projeto.request.ComponentePostRequestBody;
+import APIComponentes.Projeto.request.ComponentePutRequestBody;
 import APIComponentes.Projeto.util.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -37,12 +40,17 @@ public class ComponenteController {
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Componente> findById(@PathVariable long id){
-        return ResponseEntity.ok(componenteService.findById(id));
+        return ResponseEntity.ok(componenteService.findByIdOrThrowBadRequestException(id));
+    }
+
+    @GetMapping(path = "/find")
+    public ResponseEntity<List<Componente>> findByNome(@RequestParam String nome){
+        return ResponseEntity.ok(componenteService.findByNome(nome));
     }
 
     @PostMapping
-    public ResponseEntity<Componente> save(@RequestBody Componente componente){
-        return new ResponseEntity<>(componenteService.save(componente), HttpStatus.CREATED);
+    public ResponseEntity<Componente> save(@RequestBody ComponentePostRequestBody componentePostRequestBody){
+        return new ResponseEntity<>(componenteService.save(componentePostRequestBody), HttpStatus.CREATED);
     }
 
     @DeleteMapping(path ="/{id}")
@@ -52,8 +60,8 @@ public class ComponenteController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> replace(@RequestBody Componente componente){
-        componenteService.replace(componente);
+    public ResponseEntity<Void> replace(@RequestBody ComponentePutRequestBody componentePutRequestBody){
+        componenteService.replace(componentePutRequestBody);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
