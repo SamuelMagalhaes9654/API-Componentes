@@ -24,5 +24,4 @@ public class Componente {
     private Long quantidade;
     private String local;
 
-    
 }

@@ -25,6 +25,11 @@ public class ComponenteService {
         
     }
 
+    public List<Componente> findByNome(String nome){
+        return componenteRepository.findByNome(nome);
+        
+    }
+
     public Componente findByIdOrThrowBadRequestException(long id) {
         return componenteRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Componente não encontrado"));

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import APIComponentes.Projeto.domain.Componente;
 
-//@Repository
+@Repository
 
     
 public interface ComponenteRepository extends JpaRepository<Componente, Long> {
-    
+    List<Componente> findByNome(String nome); 
 }
     
 
