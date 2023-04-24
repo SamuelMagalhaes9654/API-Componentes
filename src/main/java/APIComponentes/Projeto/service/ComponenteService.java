@@ -5,6 +5,9 @@ import APIComponentes.Projeto.repository.ComponenteRepository;
 import APIComponentes.Projeto.request.ComponentePostRequestBody;
 import APIComponentes.Projeto.request.ComponentePutRequestBody;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,8 +23,8 @@ import org.springframework.stereotype.Service;
 public class ComponenteService {
     private final ComponenteRepository componenteRepository;
 
-    public List<Componente> listAll(){
-        return componenteRepository.findAll();
+    public Page<Componente> listAll(Pageable pageable){
+        return componenteRepository.findAll(pageable);
         
     }
 
