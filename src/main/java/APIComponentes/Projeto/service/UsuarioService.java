@@ -1,5 +1,7 @@
 package APIComponentes.Projeto.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,8 +21,13 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
 
-    public List<Usuario> listAll(){
-        return usuarioRepository.findAll();
+    public Page<Usuario> listAll(Pageable pageable){
+        return usuarioRepository.findAll(pageable);
+    }
+
+    public List<Usuario> findByNome(String nome){
+        return usuarioRepository.findByNome(nome);
+        
     }
 
     public Usuario findByIdOrThrowBadRequestException(long id) {
