@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,6 +48,14 @@ public class ComponenteController {
         return ResponseEntity.ok(componenteService.findByIdOrThrowBadRequestException(id));
     }
 
+    @GetMapping(path = "by-id/{id}")
+    public ResponseEntity<Componente> findByIdAutenticationPrincipal(@PathVariable long id,
+                                                                    @AuthenticationPrincipal UserDetails userDetails){
+        log.info(userDetails);
+        return ResponseEntity.ok(componenteService.findByIdOrThrowBadRequestException(id));
+    }
+
+    //findbyid que vai pegar as informações do usuario que estiver logado
     @GetMapping(path = "/find")
     public ResponseEntity<List<Componente>> findByNome(@RequestParam String nome){
         return ResponseEntity.ok(componenteService.findByNome(nome));
