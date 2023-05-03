@@ -18,7 +18,6 @@ import APIComponentes.Projeto.request.UsuarioPutRequestBody;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,22 +33,6 @@ public class UsuarioService implements UserDetailsService {
             usuario.getPassword(),
             usuario.getAuthorities());
     }
-    /*
-     * return new User(
-            usuario.getUsername(),
-             usuario.getPassword(),
-              usuario.isEnabled(),
-               usuario.isAccountNonExpired(),
-                usuario.isCredentialsNonExpired(),
-                 usuario.isAccountNonLocked(),
-                  usuario.getAuthorities());
-     */
-
-    // @Override
-    // public UserDetails loadUserByUsername(String username){
-    //     return Optional.ofNullable(usuarioRepository.findByEmail(username))
-    //             .orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"));
-    // }
     
     public Usuario findByEmail(String email){
         return usuarioRepository.findByEmail(email);
