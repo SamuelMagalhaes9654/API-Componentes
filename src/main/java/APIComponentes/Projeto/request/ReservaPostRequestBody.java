@@ -8,14 +8,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+// @NoArgsConstructor
+// @AllArgsConstructor
 @Data
 public class ReservaPostRequestBody {
     private String emailUsuario;
     private Long idComponenteReserva;
     private String materia;
-    private Date data;
+    private Date data;//ta salvando o dia -1
     private String horario;
 
     

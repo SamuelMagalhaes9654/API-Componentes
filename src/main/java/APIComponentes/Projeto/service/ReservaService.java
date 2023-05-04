@@ -46,11 +46,11 @@ public class ReservaService {
         reservaRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
-    public void replace(ReservaPutRequestBody componentePutRequestBody) {        
-        Reserva savedComponente = findByIdOrThrowBadRequestException(componentePutRequestBody.getId());
-        Reserva componente = ReservaMapper.INSTANCE.toReserva(componentePutRequestBody);
-        componente.setId(savedComponente.getId());
-        reservaRepository.save(componente);
+    public void replace(ReservaPutRequestBody reservaPutRequestBody) {        
+        Reserva savedReserva = findByIdOrThrowBadRequestException(reservaPutRequestBody.getId());
+        Reserva reserva = ReservaMapper.INSTANCE.toReserva(reservaPutRequestBody);
+        reserva.setId(savedReserva.getId());
+        reservaRepository.save(reserva);
     }
 }
 
