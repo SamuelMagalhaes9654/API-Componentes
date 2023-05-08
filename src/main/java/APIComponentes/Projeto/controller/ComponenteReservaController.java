@@ -51,7 +51,7 @@ public class ComponenteReservaController {
     @GetMapping(path = "by-id/{id}")
     public ResponseEntity<ComponenteReserva> findByIdAutenticationPrincipal(@PathVariable long id,
                                                                     @AuthenticationPrincipal UserDetails userDetails){
-        log.info(userDetails);
+        //log.info(userDetails);
         return ResponseEntity.ok(componenteReservaService.findByIdOrThrowBadRequestException(id));
     }
 

@@ -39,7 +39,7 @@ public class ComponenteController {
 
     @GetMapping
     public ResponseEntity<Page<Componente>> list(Pageable pageable){
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(componenteService.listAll(pageable));
     }
 
@@ -51,7 +51,7 @@ public class ComponenteController {
     @GetMapping(path = "by-id/{id}")
     public ResponseEntity<Componente> findByIdAutenticationPrincipal(@PathVariable long id,
                                                                     @AuthenticationPrincipal UserDetails userDetails){
-        log.info(userDetails);
+        //log.info(userDetails);
         return ResponseEntity.ok(componenteService.findByIdOrThrowBadRequestException(id));
     }
 

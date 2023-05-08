@@ -39,7 +39,7 @@ public class ReservaController {
 
     @GetMapping
     public ResponseEntity<Page<Reserva>> list(Pageable pageable){
-        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        //log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(reservaService.listAll(pageable));
     }
 
@@ -52,7 +52,7 @@ public class ReservaController {
     @GetMapping(path = "by-id/{id}")
     public ResponseEntity<Reserva> findByIdAutenticationPrincipal(@PathVariable long id,
                                                                     @AuthenticationPrincipal UserDetails userDetails){
-        log.info(userDetails);
+        //log.info(userDetails);
         return ResponseEntity.ok(reservaService.findByIdOrThrowBadRequestException(id));
     }
 
@@ -66,7 +66,7 @@ public class ReservaController {
     public ResponseEntity<Reserva> save(@AuthenticationPrincipal UserDetails userDetails ,@RequestBody ReservaPostRequestBody reservaPostRequestBody){
         String email = userDetails.getUsername(); // obtém o username do usuario autenticado
         reservaPostRequestBody.setEmailUsuario(email);
-        log.info(userDetails);
+        //log.info(userDetails);
         return new ResponseEntity<>(reservaService.save(reservaPostRequestBody), HttpStatus.CREATED);
     }
 
