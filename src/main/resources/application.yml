@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/APIcomponentes?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://root:OYcJ3DgFQXrBBQGEseQk@containers-us-west-154.railway.app:6147/railway?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: root
-    password: 
+    password: OYcJ3DgFQXrBBQGEseQk
   jpa:
     hibernate:
       ddl-auto: update
