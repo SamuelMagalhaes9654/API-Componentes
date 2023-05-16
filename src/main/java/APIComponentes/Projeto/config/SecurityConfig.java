@@ -13,6 +13,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
 
 import APIComponentes.Projeto.service.UsuarioService;
 
@@ -23,7 +24,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeHttpRequests(//(authz) -> authz
+        http
+        .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        .and().csrf().disable().authorizeHttpRequests(//(authz) -> authz
             authorizeConfig -> {
                 authorizeConfig.requestMatchers("/componentes").hasRole("ADMIN");
                 //authorizeConfig.requestMatchers("/usuarios").permitAll();
@@ -32,6 +35,7 @@ public class SecurityConfig {
                 
         ).formLogin().and().httpBasic();
         return http.build();
+        //.formLogin().and()
     }
 
     // @Bean

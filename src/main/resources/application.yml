@@ -3,6 +3,7 @@ server:
     include-stacktrace: on_param
 
 
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/APIcomponentes?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
