@@ -38,9 +38,9 @@ public class ReservaController {
     private final ReservaService reservaService;
 
     @GetMapping
-    public ResponseEntity<Page<Reserva>> list(Pageable pageable){
+    public ResponseEntity<List<Reserva>> list(){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(reservaService.listAll(pageable));
+        return ResponseEntity.ok(reservaService.listAll());
     }
 
     @GetMapping(path = "/{id}")

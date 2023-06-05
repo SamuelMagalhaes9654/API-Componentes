@@ -24,16 +24,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-        .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+        http.cors()
         .and().csrf().disable().authorizeHttpRequests(//(authz) -> authz
             authorizeConfig -> {
-                authorizeConfig.requestMatchers("/componentes").hasRole("ADMIN");
-                //authorizeConfig.requestMatchers("/usuarios").permitAll();
+                authorizeConfig.requestMatchers("/componentes").permitAll();
+                authorizeConfig.requestMatchers("/componentes/admin").hasRole("ADMIN");
+                authorizeConfig.requestMatchers("/usuarios").permitAll();
+                authorizeConfig.requestMatchers("/tokenauth").permitAll();
+                authorizeConfig.requestMatchers("/tokenverif").permitAll();
                 authorizeConfig.anyRequest().authenticated();
             }
                 
-        ).formLogin().and().httpBasic();
+        ).httpBasic();
         return http.build();
         //.formLogin().and()
     }

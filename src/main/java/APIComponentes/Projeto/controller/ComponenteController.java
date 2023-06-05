@@ -38,9 +38,9 @@ public class ComponenteController {
     private final ComponenteService componenteService;
 
     @GetMapping
-    public ResponseEntity<Page<Componente>> list(Pageable pageable){
+    public ResponseEntity<List<Componente>> list(){
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(componenteService.listAll(pageable));
+        return ResponseEntity.ok(componenteService.listAll());
     }
 
     @GetMapping(path = "/{id}")
@@ -61,13 +61,13 @@ public class ComponenteController {
         return ResponseEntity.ok(componenteService.findByNome(nome));
     }
 
-    @PostMapping
+    @PostMapping(path = "/admin")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Componente> save(@RequestBody ComponentePostRequestBody componentePostRequestBody){
         return new ResponseEntity<>(componenteService.save(componentePostRequestBody), HttpStatus.CREATED);
     }
 
-    @DeleteMapping(path ="/{id}")
+    @DeleteMapping(path ="/admin/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id){
         componenteService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

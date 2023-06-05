@@ -22,9 +22,8 @@ import java.util.List;
 public class ReservaService {
     private final ReservaRepository reservaRepository;
 
-    public Page<Reserva> listAll(Pageable pageable){
-        return reservaRepository.findAll(pageable);
-        
+    public List<Reserva> listAll(){
+        return reservaRepository.findAll();
     }
 
     public List<Reserva> findByemailUsuario(String emailUsuario){

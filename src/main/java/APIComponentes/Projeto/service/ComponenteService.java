@@ -23,9 +23,8 @@ import org.springframework.stereotype.Service;
 public class ComponenteService {
     private final ComponenteRepository componenteRepository;
 
-    public Page<Componente> listAll(Pageable pageable){
-        return componenteRepository.findAll(pageable);
-        
+    public List<Componente> listAll(){
+        return componenteRepository.findAll();
     }
 
     public List<Componente> findByNome(String nome){
